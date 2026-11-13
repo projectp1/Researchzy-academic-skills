@@ -9,7 +9,7 @@ This skill writes a research paper from what the author has: results, tables, fi
 
 It serves empirical, quantitative papers in IMRaD form: biomedical and life science, quantitative social science, computer science, engineering. For theory, humanities, law and qualitative work only the planning applies (steps 1 to 3: materials, claims and evidence, gaps). Say so to the user and do not apply the outline, the writing order or the section rules to such a paper.
 
-It does not search the literature, verify references, review statistics, make figures, apply venue templates, build LaTeX or DOCX, write cover letters, or promise anything about AI-detection tools. Step 10 names the skills that do the first four.
+It does not search the literature, verify references, review statistics, make figures, apply venue templates, build LaTeX or DOCX, write cover letters, or promise anything about AI-detection tools. Step 10 names the skills that do the first four. A language-only polish of a finished text, or a translation, goes to `researchzy-polish` or `researchzy-translate` (plugin `researchzy-language`, when installed).
 
 The bundled script needs Python 3.10 or newer and nothing else. Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. No account is needed; steps 2 and 7 say what the Researchzy tools add when they are connected.
 

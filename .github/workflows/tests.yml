@@ -57,6 +57,18 @@ jobs:
         run: python -m unittest discover -s plugins/researchzy-manuscript/skills/researchzy-submission/tests
       - name: researchzy-latex
         run: python -m unittest discover -s plugins/researchzy-manuscript/skills/researchzy-latex/tests
+      - name: researchzy-causal-inference
+        run: python -m unittest discover -s plugins/researchzy-manuscript/skills/researchzy-causal-inference/tests
+      - name: researchzy-systematic-review
+        run: python -m unittest discover -s plugins/researchzy-evidence/skills/researchzy-systematic-review/tests
+      - name: researchzy-risk-of-bias
+        run: python -m unittest discover -s plugins/researchzy-evidence/skills/researchzy-risk-of-bias/tests
+      - name: researchzy-meta-analysis
+        run: python -m unittest discover -s plugins/researchzy-evidence/skills/researchzy-meta-analysis/tests
+      - name: researchzy-translate
+        run: python -m unittest discover -s plugins/researchzy-language/skills/researchzy-translate/tests
+      - name: researchzy-polish
+        run: python -m unittest discover -s plugins/researchzy-language/skills/researchzy-polish/tests
       - name: researchzy-download
         run: |
           python -m unittest discover -s plugins/researchzy-reading/skills/researchzy-download/tests/python

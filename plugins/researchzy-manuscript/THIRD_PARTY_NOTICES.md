@@ -220,3 +220,30 @@ notes. Rotation and the alignment checks were left out.
 Added on 2026-11-13 (version 2.1.0). Both are Researchzy's own and contain no third-party code.
 The log excerpts under `skills/researchzy-latex/tests/fixtures/` come from builds made for the
 tests.
+
+## researchzy-causal-inference scripts
+
+Added on 2026-11-13 (version 2.2.0). `SKILL.md`, the reference files, the tests,
+`probe_causal.py` and `check_causal.py` are Researchzy's own. `scripts/rz_results.py` and
+`scripts/check_results.py` are copies of the files of the same name in `researchzy-statistics`,
+unchanged, with their `LICENSE-MIT.txt` (see that skill's section above).
+
+Parts of `scripts/causal_tools.py` are derived from
+[Jill0099/causal-inference-mixtape](https://github.com/Jill0099/causal-inference-mixtape), commit
+`5d3d938a18e7cd4992e2023aa309fc02c5008d66` (2026-08-12), MIT License
+([text](licenses/causal-inference-mixtape-MIT.txt), Copyright (c) 2026 Jill0099, kept beside the
+script as `LICENSE-MIT-causal_tools.txt`). causal-inference-mixtape is a third-party project;
+bundling parts of it does not imply endorsement by its authors.
+
+- `scripts/03_event_study.py`: `build_event_dummies` and `coefficient_path`, as `event_dummies`
+  and `event_path`. Researchzy handles staggered cohorts and never-treated units, checks that the
+  reference period lies strictly inside the window, and raises errors instead of assertions.
+- `scripts/09_randomization_inference.py`: `ri_pvalue`, with the +1 rule and permutation by
+  cluster. Researchzy accepts any statistic, adds strata and checks that treatment is constant
+  within clusters.
+- `scripts/08_matching_ipw.py`, the weighting block: the overlap share, trimming that drops units
+  instead of clipping weights, and the share of the largest weight. Researchzy normalises weights
+  within groups, adds the ATE, an optional doubly robust estimate, a balance table and bootstrap
+  standard errors.
+- `scripts/simulations/sim_twfe_staggered_bias.py`: `simulate`, as `simulate_staggered`, with fixed
+  cohort sizes, an optional pre-trend and vectorised draws.

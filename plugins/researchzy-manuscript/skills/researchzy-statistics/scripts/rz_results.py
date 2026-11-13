@@ -19,9 +19,11 @@ Import this module from the analysis script; it has no commands of its own.
     rz.finish(script=__file__, data=["data/trial.csv"], seed=SEED)
 
   record()    one analysis. A kept one goes into statistics/results.json; every one, kept or
-              dropped, gets a line in statistics/ledger.jsonl. It raises ValueError when the unit
-              is missing, when a p-value comes without an estimate and its interval, or when a
-              p-value has neither an effect size nor no_effect_size="the reason". An effect size
+              dropped, gets a line in statistics/ledger.jsonl with its p, estimate, interval, n
+              and extra fields, so a dropped analysis keeps its numbers. It raises ValueError
+              when the unit is missing, when a p-value comes without an estimate and its
+              interval, or when a p-value has neither an effect size nor no_effect_size="the
+              reason". An effect size
               is {"name", "value", "low", "high", "level"}, or {..., "no_interval": "the reason"},
               or the string "estimate" when the estimate is itself the effect size (r, a risk
               difference, an odds ratio). descriptives holds the other numbers the text will
@@ -214,7 +216,8 @@ def record(*, id, question, family, role, test, unit, n, estimate=None, interval
     if kept:
         _state["results"].append(entry)
     _append({"id": id, "family": family, "role": role, "test": test, "status": "kept" if kept else "dropped",
-             "reason": reason, "p": entry["p"], "estimate": (entry["estimate"] or {}).get("value")})
+             "reason": reason, "p": entry["p"], "estimate": (entry["estimate"] or {}).get("value"),
+             "interval": entry["interval"], "n": entry["n"], **({"extra": entry["extra"]} if "extra" in entry else {})})
     _save()
     return entry
 

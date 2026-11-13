@@ -9,7 +9,7 @@ This skill turns a topic into a review that a reader can check: every cited pape
 
 It needs the Researchzy tools (`search_papers`, `get_paper`, `list_library_papers`, `get_pdf_download`). If they are not connected, say so and stop: do not write a review from memory or from web snippets. The bundled ledger script needs Python 3.10 or newer. Resolve `SKILL_DIR` to the directory containing this `SKILL.md`.
 
-It writes a narrative or scoping review with a transparent search. It is not a PRISMA systematic review with dual screening and risk-of-bias assessment; say so if the user asks for one, and offer this as the first pass.
+It writes a narrative or scoping review with a transparent search. It is not a PRISMA systematic review with dual screening and risk-of-bias assessment; say so if the user asks for one and hand it to `researchzy-systematic-review` (plugin `researchzy-evidence`, when installed), or offer this as the first pass.
 
 ## Two sizes
 

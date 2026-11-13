@@ -121,6 +121,8 @@ class RecordTests(unittest.TestCase):
         lines = [json.loads(x) for x in Path("statistics/ledger.jsonl").read_text().splitlines()]
         self.assertEqual([x.get("status") for x in lines], ["kept", "kept", "dropped", None])
         self.assertEqual(lines[2]["reason"], "planned, but the table was cut")
+        self.assertLessEqual({"estimate", "interval", "n", "p"}, set(lines[2]))     # a dropped test keeps its numbers
+        self.assertNotIn("extra", lines[2])
         with self.assertRaises(ValueError):
             self.rz.record(**full(id="late", family="pairwise"))
         self.rz.record(**full(id="t1", family="tukey", p=0.02))

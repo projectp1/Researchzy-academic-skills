@@ -1,6 +1,6 @@
 # Researchzy plugin
 
-Version 2.1.0. Find and review the literature with real papers. This is the one Researchzy plugin that needs a Researchzy account: it connects your agent to Researchzy through nine MCP tools (`search_papers`, `get_paper`, `list_collections`, `create_collection`, `list_library_papers`, `add_paper_to_library`, `get_pdf_download`, `create_pdf_upload` and `get_profile`) and bundles five skills that use them.
+Version 2.2.0. Find and review the literature with real papers. This is the one Researchzy plugin that needs a Researchzy account: it connects your agent to Researchzy through nine MCP tools (`search_papers`, `get_paper`, `list_collections`, `create_collection`, `list_library_papers`, `add_paper_to_library`, `get_pdf_download`, `create_pdf_upload` and `get_profile`) and bundles five skills that use them.
 
 | User goal | Skill | Result |
 |---|---|---|
