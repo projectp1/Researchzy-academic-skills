@@ -546,6 +546,8 @@ def findings(ledger: dict, directory: Path) -> list:
                 add("warning", "CODE_CHANGED_SINCE_DECISION", where, f"{d['code']} meant something else when this was decided")
             if d["stage"] == "ta" and not any(r.get("abstract") for r in members[c]):
                 add("warning", "EXCLUDED_ON_TITLE_ONLY", where, "no abstract: allowed only when the title clearly fails")
+            elif d["stage"] == "ta" and any(joined(r.get("title")) == joined(d.get("quote")) for r in members[c]):
+                add("warning", "TITLE_AS_QUOTE", where, "the quote is the whole title: quote the words that show the reason")
             if d["stage"] == "ft" and ft_text is None:
                 add("error", "FULLTEXT_MISSING", where, f"no text to check the quote in: save it as fulltext/{c}.txt")
             elif not (contains(ft_text, d.get("quote")) if ft_text else

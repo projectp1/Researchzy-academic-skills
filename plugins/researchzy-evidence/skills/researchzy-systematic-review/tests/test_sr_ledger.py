@@ -305,8 +305,11 @@ class CheckTests(LedgerTestCase):
                      "reviewer": "model", "quote": "allocated at random by a computer"})
         (self.dir / "fulltext" / "R0002.txt").unlink()
         self.decide({"record": "R0001", "stage": "ta", "decision": "exclude", "code": "E1", "reviewer": "model",
-                     "quote": "randomly assigned to an early"})
+                     "quote": "randomly assigned to an early"},
+                    {"record": "R0004", "stage": "ta", "decision": "exclude", "code": "E3", "reviewer": "model",
+                     "quote": "Snack timing in mice: an invented laboratory study"})
         found = {(f["code"], f["where"]) for f in sl.findings(sl.load(self.dir), self.dir)}
+        self.assertIn(("TITLE_AS_QUOTE", "R0004 ta"), found)    # in the record, but it does not say why
         self.assertIn(("QUOTE_NOT_FOUND", "R0006 ta"), found)
         self.assertIn(("FULLTEXT_MISSING", "R0002 ft"), found)
         self.assertIn(("NOT_AT_STAGE", "R0001"), found)       # excluded at ta, but it has a full-text decision

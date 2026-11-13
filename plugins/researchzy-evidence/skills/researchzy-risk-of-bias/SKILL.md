@@ -58,7 +58,7 @@ Everything goes in `risk-of-bias/` in the user's working directory.
 
    Both refuse to run while `check` fails. Open each PNG and look at it before handing it over.
 
-6. **Certainty**, only when the user asks for it. Read [certainty](references/certainty.md). Write `risk-of-bias/sof.json`: per outcome the studies, design and starting level; for each of the five domains a decision, its reason and the studies behind it; any upgrade the user decided; the effect and its source; comparator risks with their sources. Then run:
+6. **Certainty**, only when the user asks for it. Read [certainty](references/certainty.md). The pooled effects come from `meta-analysis/results.json`. If there is none, do not pool here: run `researchzy-meta-analysis` (plugin `researchzy-evidence`, when installed) first, following its own SKILL.md; without it, use the pooled numbers the user gives, or write the summary of findings without a pooled effect and say why. Write `risk-of-bias/sof.json`: per outcome the studies, design and starting level; for each of the five domains a decision, its reason and the studies behind it; any upgrade the user decided; the effect and its source; comparator risks with their sources. Then run:
 
    ```sh
    python3 "$SKILL_DIR/scripts/sof_check.py" --results meta-analysis/results.json

@@ -28,7 +28,8 @@ One JSON object per line in `systematic-review/decisions/<stage>-<nn>.jsonl`, re
 
 ## Title and abstract
 
-- Include a record that may meet every I criterion. Exclude only when the title or abstract shows that a criterion fails, and quote the words that show it.
+- Read each record. A script may sort or batch the records for reading but never decides: keyword rules miss what a reader sees and exclude what a reader would keep, and the calibration says nothing about them.
+- Include a record that may meet every I criterion. Exclude only when the title or abstract shows that a criterion fails, and quote the words that show it: the design for E2, the population for E3, the intervention for E4, the comparator for E5. A whole title is a quote only when the title itself shows the reason.
 - When unsure, decide `unsure`: the record goes to full text. Information that is missing is no reason to exclude.
 - Without an abstract, exclude only when the title clearly fails a criterion (`check` lists these for a second look); otherwise `unsure`.
 - When several criteria fail, use the first of their codes in `exclusion_order`.
@@ -62,7 +63,7 @@ Offer it after title-abstract screening; it is optional. `sr_agreement.py sample
 
 ## Full text
 
-1. For each record included or unsure at `ta`, get the full text: `get_pdf_download` with its `corpusId` (follow the PDF rules of the `researchzy` skill: download before the URL expires and check that the file is a PDF), then `researchzy-download` (plugin `researchzy-reading`, when installed), then ask the user. A registry record's full text is its registry entry.
+1. For each record included or unsure at `ta`, get the full text: `get_pdf_download` with its `corpusId` (follow the PDF rules of the `researchzy` skill: download before the URL expires and check that the file is a PDF), then `researchzy-download` (plugin `researchzy-reading`, when installed), then ask the user. Do not write your own downloader or call services that ask for an email address. A registry record's full text is its registry entry.
 2. Save the text as `systematic-review/fulltext/<record>.txt` with a line `[[page N]]` at the start of each page, for example by extracting it with PyMuPDF. Keep the PDF beside it. Never write a signed download URL into any file.
 3. Decide `include` with a `study` label, `exclude` with code, quote and locator, or `not_retrieved` with a `note` of what was tried. `not_retrieved` is not an exclusion: the flow counts it as a report not retrieved.
 4. A trial's registration, conference abstract and journal article are three reports of one study and take the same `study` label. `check` warns when included reports share a PMID or an NCT number under different labels.
@@ -86,5 +87,6 @@ Offer it after title-abstract screening; it is optional. `sr_agreement.py sample
 | SEED_NOT_FOUND | See searching.md, "Known papers" |
 | PROTOCOL_CHANGED_UNRECORDED | Record the change with `protocol --amend` |
 | EXCLUDED_ON_TITLE_ONLY, POSSIBLE_SAME_STUDY | Look again; keep the decision or correct it |
+| TITLE_AS_QUOTE | Replace the quote with the words of the title or abstract that show the reason for the code |
 | EXTRACTION_FORMAT, EXTRACTION_NO_SOURCE, EXTRACTION_QUOTE_NOT_FOUND, EXTRACTION_STUDY_NOT_INCLUDED | Correct the row from the full text (prisma.md, extraction table) |
 | EXTRACTION_VALUE_NOT_IN_QUOTE, EXTRACTION_STUDY_MISSING | Quote the words that carry the number; add the missing study's rows or say why it has none |

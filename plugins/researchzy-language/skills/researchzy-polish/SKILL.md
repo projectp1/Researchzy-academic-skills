@@ -23,7 +23,7 @@ It does not change content: it does not add, remove or reorder claims, supply ev
 
 ## Workflow
 
-Everything goes in `polish/` in the user's working directory. Never edit the user's file in place.
+Everything goes in `polish/` in the user's working directory. Never edit the user's file in place, and never replace it with the polished text, even a file you saved for the user from their message: the polished text is `polish/polished.<ext>`, and you offer to copy it over their file.
 
 1. **Survey, then ask once.**
 
@@ -31,7 +31,7 @@ Everything goes in `polish/` in the user's working directory. Never edit the use
    python3 "$SKILL_DIR/scripts/polish_check.py" survey paper.md --out polish
    ```
 
-   `polish/survey.md` lists candidates for the protected-term list (abbreviations, names, symbols and names with digits or inner capitals), the claim words of every sentence, and leads for author queries. Then ask the author, in one message: the level (light, medium or heavy; default medium, see the table); US or UK spelling (default: what the text mostly uses); which terms to protect, starting from the candidates; and whether to compare the result with their own style or with a target journal. Ask nothing else.
+   `polish/survey.md` lists candidates for the protected-term list (abbreviations, names, symbols and names with digits or inner capitals), the claim words of every sentence, and leads for author queries. Then ask the author, in one message: the level (light, medium or heavy; default medium, see the table); US or UK spelling (default: what the text mostly uses); which terms to protect, starting from the candidates; and whether to compare the result with their own style or with a target journal. Ask nothing else. When the request already settles these, or the text is a paragraph or two whose only candidates are its abbreviations, do not ask: say in your reply which level and spelling you used and that the abbreviations were protected.
 
 2. **Save the original and the protected list.** Copy the file to `polish/original.<ext>`, write `polish/protect.txt` with one term per line, and survey the copy:
 
