@@ -6,6 +6,7 @@ import io
 import json
 import os
 import platform
+import re
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
@@ -238,6 +239,52 @@ class CheckTests(unittest.TestCase):
         self.assertIn("| results.md:7 | 54.3 | not_found |", report)
         self.assertIn("| results.md:9 | python 2.7.1 | mismatch |", report.lower())
         self.assertEqual(summary["text"], {"mismatch": 4, "matched": 11, "not_found": 1})
+
+    def test_a_flipped_sign_is_a_mismatch(self):
+        self.build()
+        Path("results.md").write_text(
+            "Group A scored 2.31 points higher than group B (95% CI 0.61 to 3.98).\n\n"
+            "The drug shortened latency by 9.12 min, t(10) = -11.63.\n\n"
+            "Group A minus group C was -1.05 points.\n\n"
+            "Group A minus group B was -2.31 points (95% CI -3.98 to -0.61; p = 0.012).\n",
+            encoding="utf-8")
+        code, summary = self.check("--text", "results.md")
+        self.assertEqual(code, 1)
+        report = Path("statistics/check.md").read_text()
+        flipped = "(the recorded value has the opposite sign) |"
+        self.assertIn(f"| results.md:5 | -1.05 | mismatch | nearest: ac.estimate.value = 1.0517 {flipped}", report)
+        self.assertIn(f"| results.md:7 | -2.31 | mismatch | nearest: ab.estimate.value = 2.3124 {flipped}", report)
+        self.assertIn(f"| results.md:7 | -0.61 | mismatch | nearest: ab.interval.low = 0.61 {flipped}", report)
+        self.assertEqual(summary["text"], {"matched": 9, "mismatch": 4})
+
+    def test_extend_adds_a_title_checks_numbers_and_labels(self):
+        rz = load("rz_results", "rz_results_extra")
+        rz.record(id="pool", question="Does the drug shorten latency?", family="primary", role="primary",
+                  test="random-effects meta-analysis", unit="study", n={"studies": 6},
+                  estimate={"name": "SMD", "value": -0.42, "units": "SD"},
+                  interval={"low": -0.61, "high": -0.23, "level": 0.95}, extra={"tau2": 0.0, "i2": 0.0})
+        with redirect_stdout(io.StringIO()):
+            rz.finish(script="analysis.py", data=["data.csv"])
+        Path("results.md").write_text("The pooled SMD was -0.42 (95% CI -0.61 to -0.23; k = 6; tau^2 = 0.04; I^2 = 0%).\n",
+                                      encoding="utf-8")
+
+        def extend(content, args):
+            pool = content["results"][0]
+            return {"title": "Meta-analysis check", "checks": [("pooling", "ok", [], "1 pooled result")],
+                    "numbers": [(6.0, "k", "pool", "n.studies"), (pool["extra"]["tau2"], "tau2", "pool", "extra.tau2")],
+                    "labels": (("k", re.compile(r"\bk\s*=\s*$")), ("tau2", re.compile(r"\btau\^?2\s*=\s*$")))}
+
+        out = io.StringIO()
+        with redirect_stdout(out), redirect_stderr(io.StringIO()):
+            code = cr.main(["--text", "results.md"], extend=extend)
+        summary = json.loads(out.getvalue())
+        self.assertEqual(code, 1)
+        self.assertEqual(summary["checks"]["pooling"], "ok")
+        self.assertEqual(summary["text"], {"matched": 6, "mismatch": 1})
+        report = Path("statistics/check.md").read_text()
+        self.assertTrue(report.startswith("# Meta-analysis check\n"))
+        self.assertIn("| results.md:1 | 6 | matched | pool.n.studies = 6 |", report)
+        self.assertIn("| results.md:1 | 0.04 | mismatch | nearest: pool.extra.tau2 = 0 |", report)
 
     def test_strict_fails_on_a_number_not_found(self):
         self.build()

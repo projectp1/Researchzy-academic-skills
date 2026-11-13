@@ -25,7 +25,8 @@ Import this module from the analysis script; it has no commands of its own.
               is {"name", "value", "low", "high", "level"}, or {..., "no_interval": "the reason"},
               or the string "estimate" when the estimate is itself the effect size (r, a risk
               difference, an odds ratio). descriptives holds the other numbers the text will
-              print (group means, SDs, counts).
+              print (group means, SDs, counts). extra holds the other fields a kind of analysis
+              records (a meta-analysis's heterogeneity, a causal design's diagnostics).
   adjust(pvalues, method)   adjusted p-values in the order given: bonferroni, holm, bh
               (Benjamini-Hochberg) or by (Benjamini-Yekutieli).
   correct(family, method)   adjusts every p-value recorded in the family in this run, kept and
@@ -154,7 +155,8 @@ def adjust(pvalues, method: str) -> list:
 
 
 def record(*, id, question, family, role, test, unit, n, estimate=None, interval=None, statistic=None, df=None,
-           p=None, effect_size=None, no_effect_size=None, descriptives=None, notes="", kept=True, reason=None) -> dict:
+           p=None, effect_size=None, no_effect_size=None, descriptives=None, notes="", extra=None, kept=True,
+           reason=None) -> dict:
     """Record one analysis; see the module docstring for the fields and the refusals."""
     def refuse(message):
         raise ValueError(f"rz_results.record({id!r}): {message}")
@@ -173,6 +175,8 @@ def record(*, id, question, family, role, test, unit, n, estimate=None, interval
         refuse("the unit of analysis is missing: name what one independent unit is (subject, animal, culture, run)")
     if p is not None and not (_number(p) and 0 <= p <= 1):
         refuse("p must be the exact p-value as a number between 0 and 1, or None when there is no test")
+    if extra is not None and not isinstance(extra, dict):
+        refuse("extra must be a dict of the other fields this kind of analysis records")
     if not kept:
         if not _text(reason):
             refuse("a dropped analysis needs reason='why it is not reported'")
@@ -204,6 +208,8 @@ def record(*, id, question, family, role, test, unit, n, estimate=None, interval
                     "n": n, "estimate": estimate, "interval": interval, "statistic": statistic, "df": df, "p": p,
                     "effect_size": effect_size, "no_effect_size": no_effect_size, "descriptives": descriptives,
                     "notes": notes})
+    if extra is not None:
+        entry["extra"] = _plain(extra)
     _state["tests"].append({"id": id, "family": family, "p": entry["p"], "kept": bool(kept)})
     if kept:
         _state["results"].append(entry)

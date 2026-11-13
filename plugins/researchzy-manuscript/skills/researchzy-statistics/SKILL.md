@@ -99,7 +99,7 @@ Everything goes in `statistics/` in the user's working directory. Run every comm
    python3 "$SKILL_DIR/scripts/check_results.py" --script statistics/analysis.py --text statistics/results.md statistics/methods.md
    ```
 
-   A `mismatch` is fixed in the text by copying the recorded value. A `not_found` number is either a number from outside the results (say where it comes from) or one the script should record. The exit code is 1 until no mismatch remains.
+   A `mismatch` is fixed in the text by copying the recorded value. A printed minus sign must match the recorded sign; a number without a sign may carry its direction in words ("shorter by 9.1 min"). A `not_found` number is either a number from outside the results (say where it comes from) or one the script should record. The exit code is 1 until no mismatch remains.
 
 9. **Sample size and power** (before a study, or when asked). Read [power and sample size](references/power-and-sample-size.md). Ask where the effect and the SD come from, then run, for example:
 

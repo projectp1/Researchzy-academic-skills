@@ -21,16 +21,24 @@
   text       (--text) every number is looked up at the rounding it is printed with: matched,
              mismatch or not_found. A labelled number (p, n, df, a test statistic, a package
              version) is compared with values of that kind; "p < 0.001" matches any smaller p;
-             "p = 0.000" is a mismatch. An unlabelled number that matches nothing is a mismatch
-             when it has decimals and its sentence reports a result (two or more of its other
-             numbers match one result), else not_found. Signs are not compared. Ignored by rule:
-             years, dates, headings, list markers, code, links, citations, numbers after Figure,
-             Table, Section and the like, numbers inside names (IL-6, CO2), table sizes.
-             statistics/power*.json from power.py, when present, also supply values.
+             "p = 0.000" is a mismatch. A printed minus sign must match the recorded sign; a number
+             without one may carry its direction in words ("shorter by 9.1 min"). An unlabelled
+             number that matches nothing is a mismatch when it has decimals and either its
+             sentence reports a result (two or more of its other numbers match one result) or the
+             recorded value has the opposite sign, else not_found. Ignored by rule: years, dates,
+             headings, list markers, code, links, citations, numbers after Figure, Table, Section
+             and the like, numbers inside names (IL-6, CO2), table sizes. statistics/power*.json
+             from power.py, when present, also supply values.
 
 Writes check.md in --dir and prints a JSON summary. Exit code 1 on a mismatch, a failed check
 (a missing field, a family without correction, a ledger or script finding) or drift; with
 --strict also on a not_found number. Exit code 2 when results.json cannot be read.
+
+A skill that records other kinds of results calls main(argv, extend). extend(content, args)
+returns a dict with any of: "title" of check.md; "checks", rows of (name, status, problems,
+detail) added before the text check; "numbers", (value, kind, owner, path) the text may print;
+"labels", (kind, regex) pairs tried after the built-in ones. Numbers in a result's extra field
+are looked up like its estimate.
 
 Standard library only. Portions are derived from MIT-licensed code: see LICENSE-MIT.txt next to
 this file and THIRD_PARTY_NOTICES.md in the plugin.
@@ -307,7 +315,7 @@ def candidates(content: dict, power) -> list:
 
     for r in content["results"]:
         for key, kind in (("n", "n"), ("df", "df"), ("p", "p"), ("p_adjusted", "p"), ("estimate", "value"),
-                          ("interval", "value"), ("effect_size", "value"), ("descriptives", "value")):
+                          ("interval", "value"), ("effect_size", "value"), ("descriptives", "value"), ("extra", "value")):
             leaves(r.get(key), r.get("id"), key, kind)
         leaves((r.get("statistic") or {}).get("value"), r.get("id"), "statistic", "statistic")
     for name, family in (content.get("families") or {}).items():
@@ -320,7 +328,7 @@ def candidates(content: dict, power) -> list:
     return found
 
 
-def scan_text(path: Path, found: list, versions: dict) -> tuple:
+def scan_text(path: Path, found: list, versions: dict, labels=LABELS) -> tuple:
     """Rows (where, printed, status, recorded) for every number in the text, and the ignored counts."""
     text = path.read_text(encoding="utf-8").replace("−", "-")
     text = re.sub(r"[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+", lambda m: "^" + m.group(0).translate(str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹⁻", "0123456789-")), text)
@@ -340,6 +348,12 @@ def scan_text(path: Path, found: list, versions: dict) -> tuple:
     def show(c) -> str:
         return f"{c[2]}.{c[3]} = " + (str(int(c[0])) if c[0].is_integer() and abs(c[0]) < 1e15 else f"{c[0]:.6g}")
 
+    def distance(c, token) -> float:
+        # A printed minus sign must match the recorded sign; an unsigned number may carry its direction in words
+        # ("shorter by 9.1 min" for an estimate of -9.1).
+        value = c[0] if token["signed"] else abs(c[0])
+        return min(abs(value * s - token["value"]) for s in ((1, 100) if token["percent"] else (1,)))
+
     start = 0
     for end in [m.start() for m in SENTENCE_END.finditer(text)] + [len(text)]:
         tokens = []
@@ -347,7 +361,7 @@ def scan_text(path: Path, found: list, versions: dict) -> tuple:
             line_start = text.rfind("\n", 0, m.start()) + 1
             before, after = text[line_start:m.start()], text[m.end():m.end() + 8]
             digits = m.group(2).replace(",", "")
-            label = next(((kind, rx.search(before)) for kind, rx in LABELS if rx.search(before)), (None, None))
+            label = next(((kind, rx.search(before)) for kind, rx in labels if rx.search(before)), (None, None))
             whole = m.group(3) is None and not m.group(4) and not m.group(5)
             if text[m.end():m.end() + 1] == "." and text[m.end() + 1:m.end() + 2].isdigit():
                 ignored["version-like number"] += 1
@@ -362,43 +376,48 @@ def scan_text(path: Path, found: list, versions: dict) -> tuple:
             else:
                 exponent = int(m.group(4) or m.group(5) or 0)
                 tokens.append({"where": where(m.start()), "printed": m.group(0).strip(), "kind": label[0],
-                               "op": label[1].group(1) if label[0] == "p" else "=", "value": float(digits) * 10 ** exponent,
+                               "op": label[1].group(1) if label[0] == "p" else "=", "signed": bool(m.group(1)),
+                               "value": (-1 if m.group(1) else 1) * float(digits) * 10 ** exponent,
                                "tolerance": 0.5 * 10 ** (exponent - len(m.group(3) or "")) * (1 + 1e-9),
                                "percent": bool(m.group(6)), "decimal": not whole or bool(m.group(6))})
         for token in tokens:
             pool = [c for c in found if c[1] == token["kind"]] if token["kind"] else found
-            x, scale = token["value"], (1, 100) if token["percent"] else (1,)
+            x = token["value"]
             if token["op"] in "<≤":
                 hits = [c for c in pool if c[0] < x or (token["op"] == "≤" and c[0] == x)]
             elif token["op"] in ">≥":
                 hits = [c for c in pool if c[0] > x or (token["op"] == "≥" and c[0] == x)]
             else:
-                hits = [c for c in pool if any(abs(abs(c[0]) * s - x) <= token["tolerance"] for s in scale)]
+                hits = [c for c in pool if distance(c, token) <= token["tolerance"]]
+                if token["signed"] and not hits:
+                    unsigned = dict(token, signed=False, value=-x)
+                    token["flipped"] = [c for c in pool if distance(c, unsigned) <= token["tolerance"]]
             if token["kind"] == "p" and x == 0:
                 hits, token["note"] = [], "a p-value is never zero: print p < 0.001"
             elif token["op"] != "=" and hits and x > 0.001:
                 token["note"] = "print the exact p-value"
+            elif token.get("flipped"):
+                token["note"] = "the recorded value has the opposite sign"
             token.update(hits=hits, pool=pool)
         owners = Counter(owner for token in tokens for owner in {c[2] for c in token["hits"]})
         anchor = owners.most_common(1)[0][0] if owners and owners.most_common(1)[0][1] >= 2 else None
         for token in tokens:
             note = f" ({token['note']})" if token.get("note") else ""
             def rank(c, token=token):          # the sentence's own result first, then the closest value
-                return (c[2] != anchor, token["decimal"] and c[1] in ("df", "n"),
-                        min(abs(abs(c[0]) * s - token["value"]) for s in ((1, 100) if token["percent"] else (1,))))
+                return (c[2] != anchor, token["decimal"] and c[1] in ("df", "n"), distance(c, token))
             if token["hits"]:
                 best = min(token["hits"], key=rank)
                 rows.append((token["where"], token["printed"], "matched", show(best) + note))
                 continue
-            nearest = min(token["pool"], key=rank, default=None)
-            status = "mismatch" if token["kind"] or (anchor and token["decimal"]) else "not_found"
+            nearest = min(token.get("flipped") or token["pool"], key=rank, default=None)
+            status = "mismatch" if token["kind"] or (token["decimal"] and (anchor or token.get("flipped"))) else "not_found"
             rows.append((token["where"], token["printed"], status,
                          (f"nearest: {show(nearest)}" if nearest else f"no recorded {token['kind'] or 'value'}") + note))
         start = end
     return sorted(rows, key=lambda row: int(row[0].rsplit(":", 1)[1])), ignored
 
 
-def main(argv=None) -> int:
+def main(argv=None, extend=None) -> int:
     parser = argparse.ArgumentParser(description="Check results.json, the ledger, the analysis script and the text.")
     parser.add_argument("--dir", default="statistics", help="Folder with results.json and ledger.jsonl (default: statistics)")
     parser.add_argument("--script", type=Path, help="The analysis script, to lint it")
@@ -441,13 +460,17 @@ def main(argv=None) -> int:
         add("script", state, found, f"{args.script}: seed, typed data, input overwrite, rz_results and equal_var")
     else:
         add("script", "not_checked", [], "no --script given")
+    ext = extend(content, args) if extend else {}
+    for name, status, found, detail in ext.get("checks", ()):
+        add(name, status, list(found), detail)
     text_rows, ignored = [], Counter()
     for path in args.text:
         if not path.is_file():
             print(f"check_results: no such text file: {path}", file=sys.stderr)
             return 2
-        rows, skipped = scan_text(path, candidates(content, power), {"python": (record or {}).get("python", ""),
-                                                                    **((record or {}).get("packages") or {})})
+        rows, skipped = scan_text(path, candidates(content, power) + list(ext.get("numbers", ())),
+                                  {"python": (record or {}).get("python", ""), **((record or {}).get("packages") or {})},
+                                  LABELS + tuple(ext.get("labels", ())))
         text_rows += rows
         ignored += skipped
     counts = Counter(status for _, _, status, _ in text_rows)
@@ -459,7 +482,7 @@ def main(argv=None) -> int:
     else:
         checks["text"] = {"status": "not_checked", "detail": "no --text given"}
 
-    lines = ["# Statistics check", "", f"`{folder / 'results.json'}`: {len(content['results'])} result(s), run {content.get('run')}.",
+    lines = [f"# {ext.get('title', 'Statistics check')}", "", f"`{folder / 'results.json'}`: {len(content['results'])} result(s), run {content.get('run')}.",
              "", "| Check | Status | Detail |", "|---|---|---|"]
     lines += [f"| {name} | {c['status']} | {c['detail']} |" for name, c in checks.items()]
     if problems:

@@ -90,6 +90,14 @@ class RecordTests(unittest.TestCase):
         self.refused("role must be", role="main")
         self.refused("n must be a whole number", n={"pairs": 11.5})
         self.refused("needs reason=", kept=False)
+        self.refused("extra must be a dict", extra=[0.04])
+
+    def test_extra_fields_are_kept_only_when_given(self):
+        self.rz.record(**full(id="a"))
+        self.rz.record(**full(id="b", extra={"tau2": 0.04, "pi": {"low": -0.9, "high": 0.1}}))
+        results = json.loads(Path("statistics/results.json").read_text())["results"]
+        self.assertNotIn("extra", results[0])
+        self.assertEqual(results[1]["extra"], {"tau2": 0.04, "pi": {"low": -0.9, "high": 0.1}})
 
     def test_reasons_instead_of_an_effect_size_or_its_interval(self):
         self.rz.record(**full(id="a", effect_size=None, no_effect_size="the omnibus test has no single effect"))
