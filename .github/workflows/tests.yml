@@ -77,6 +77,16 @@ jobs:
         run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-thesis-audit/tests
       - name: researchzy-defense
         run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-defense/tests
+      - name: researchzy-survey
+        run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-survey/tests
+      - name: researchzy-psychometrics
+        run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-psychometrics/tests
+      - name: researchzy-path-models
+        run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-path-models/tests
+      - name: researchzy-qualitative
+        run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-qualitative/tests
+      - name: researchzy-text-as-data
+        run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-text-as-data/tests
       - name: researchzy-download
         run: |
           python -m unittest discover -s plugins/researchzy-reading/skills/researchzy-download/tests/python

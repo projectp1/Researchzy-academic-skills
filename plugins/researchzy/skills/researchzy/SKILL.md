@@ -5,7 +5,7 @@ description: Researchzy, the entry point for research with real papers. Searches
 
 # Researchzy
 
-This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, translation and polishing with `researchzy-language`, and the thesis skills with `researchzy-thesis`.
+This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, translation and polishing with `researchzy-language`, the thesis skills with `researchzy-thesis`, and the social-science methods with `researchzy-social`.
 
 ## Which skill
 
@@ -41,6 +41,11 @@ This is the entry point to Researchzy. It searches and manages papers itself wit
 | A thesis assembled from published papers into the school's template, or a thesis measured against the school's format rules | `researchzy-thesis-build` | `researchzy-thesis` |
 | A consistency check of a whole thesis, or of its blind-review copy, before review or the defence | `researchzy-thesis-audit` | `researchzy-thesis` |
 | Preparation for a thesis defence or viva: likely questions, answer outlines, a mock defence | `researchzy-defense` | `researchzy-thesis` |
+| A questionnaire study: items with sources, wording review, exclusion rules, or an audit of the returned responses | `researchzy-survey` | `researchzy-social` |
+| Reliability and validity of multi-item scales: alpha, omega, EFA, CFA, CR, AVE, HTMT, invariance | `researchzy-psychometrics` | `researchzy-social` |
+| Mediation, moderation, moderated mediation or the structural part of an SEM | `researchzy-path-models` | `researchzy-social` |
+| Qualitative coding of interviews, field notes or open answers, with quotes checked and agreement calibrated | `researchzy-qualitative` | `researchzy-social` |
+| Text turned into a research variable: codebook, validated model labels, topic or dictionary comparisons | `researchzy-text-as-data` | `researchzy-social` |
 
 When a request spans several steps (find, get the full text, read, write), take them in that order and stop where the request stops. If the skill a task needs is not installed, say so, name the plugin that provides it, and do what this skill can.
 
