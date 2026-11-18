@@ -37,6 +37,12 @@
       "source": "./plugins/researchzy-language",
       "description": "Academic translation and language polishing with your agent: numbers, citations, LaTeX and terms kept exactly, a glossary, side-by-side output, edits limited to language with a reason for each, and scripts that check nothing in the content changed. No account needed.",
       "category": "research"
+    },
+    {
+      "name": "researchzy-thesis",
+      "source": "./plugins/researchzy-thesis",
+      "description": "Degree theses with your agent: a proposal written to your school's own template from real papers, a thesis assembled from your published papers into the school's template and measured against its format rules, a consistency audit of the whole thesis and its blind-review copy, and defence questions with answer outlines checked against the thesis. The proposal's literature search needs the researchzy plugin and a Researchzy account; the rest works on your own files.",
+      "category": "research"
     }
   ]
 }

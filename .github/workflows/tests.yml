@@ -69,6 +69,14 @@ jobs:
         run: python -m unittest discover -s plugins/researchzy-language/skills/researchzy-translate/tests
       - name: researchzy-polish
         run: python -m unittest discover -s plugins/researchzy-language/skills/researchzy-polish/tests
+      - name: researchzy-thesis-proposal
+        run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-thesis-proposal/tests
+      - name: researchzy-thesis-build
+        run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-thesis-build/tests
+      - name: researchzy-thesis-audit
+        run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-thesis-audit/tests
+      - name: researchzy-defense
+        run: python -m unittest discover -s plugins/researchzy-thesis/skills/researchzy-defense/tests
       - name: researchzy-download
         run: |
           python -m unittest discover -s plugins/researchzy-reading/skills/researchzy-download/tests/python

@@ -5,7 +5,7 @@ description: Researchzy, the entry point for research with real papers. Searches
 
 # Researchzy
 
-This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, and translation and polishing with `researchzy-language`.
+This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, translation and polishing with `researchzy-language`, and the thesis skills with `researchzy-thesis`.
 
 ## Which skill
 
@@ -37,6 +37,10 @@ This is the entry point to Researchzy. It searches and manages papers itself wit
 | A grant proposal written against a funder's call | `researchzy-grants` | `researchzy-manuscript` |
 | A translation of a manuscript section or a paper that keeps numbers, citations and LaTeX | `researchzy-translate` | `researchzy-language` |
 | Polished academic English that says the same thing | `researchzy-polish` | `researchzy-language` |
+| A thesis proposal, or a research proposal for a PhD application, written to the school's template | `researchzy-thesis-proposal` | `researchzy-thesis` |
+| A thesis assembled from published papers into the school's template, or a thesis measured against the school's format rules | `researchzy-thesis-build` | `researchzy-thesis` |
+| A consistency check of a whole thesis, or of its blind-review copy, before review or the defence | `researchzy-thesis-audit` | `researchzy-thesis` |
+| Preparation for a thesis defence or viva: likely questions, answer outlines, a mock defence | `researchzy-defense` | `researchzy-thesis` |
 
 When a request spans several steps (find, get the full text, read, write), take them in that order and stop where the request stops. If the skill a task needs is not installed, say so, name the plugin that provides it, and do what this skill can.
 
