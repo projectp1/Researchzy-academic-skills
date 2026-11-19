@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: python -m pip install pytest pyyaml matplotlib pillow scipy statsmodels python-pptx pymupdf
+      - run: python -m pip install pytest pyyaml matplotlib pillow scipy statsmodels python-pptx pymupdf pandas scikit-learn python-docx openpyxl semopy
       - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
       - name: Repository
         run: python -m unittest discover -s tests
@@ -87,6 +87,18 @@ jobs:
         run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-qualitative/tests
       - name: researchzy-text-as-data
         run: python -m unittest discover -s plugins/researchzy-social/skills/researchzy-text-as-data/tests
+      - name: researchzy-protocol
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-protocol/tests
+      - name: researchzy-registry-check
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-registry-check/tests
+      - name: researchzy-reporting-checklist
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-reporting-checklist/tests
+      - name: researchzy-survival
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-survival/tests
+      - name: researchzy-diagnostic-accuracy
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-diagnostic-accuracy/tests
+      - name: researchzy-case-report
+        run: python -m unittest discover -s plugins/researchzy-clinical/skills/researchzy-case-report/tests
       - name: researchzy-download
         run: |
           python -m unittest discover -s plugins/researchzy-reading/skills/researchzy-download/tests/python

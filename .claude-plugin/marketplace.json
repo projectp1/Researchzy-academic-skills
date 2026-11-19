@@ -5,7 +5,7 @@
     "url": "https://github.com/Researchzy"
   },
   "metadata": {
-    "description": "Academic research skills for AI agents: find and review the literature in 250 million real papers, develop research ideas, find citations and choose a journal, read papers closely, run systematic reviews and meta-analyses, translate and polish academic English, and analyse, write, check, submit and present a manuscript."
+    "description": "Academic research skills for AI agents: find and review the literature in 250 million real papers, develop research ideas, find citations and choose a journal, read papers closely, run systematic reviews and meta-analyses, translate and polish academic English, analyse, write, check, submit and present a manuscript, plan and defend a thesis, study surveys, scales and interviews, and run clinical studies."
   },
   "plugins": [
     {
@@ -48,6 +48,12 @@
       "name": "researchzy-social",
       "source": "./plugins/researchzy-social",
       "description": "Social-science methods with your agent: questionnaires with a recorded wording review and a response-quality audit, scale reliability and validity, mediation and moderation with bootstrap intervals, qualitative coding with quotes checked against the transcripts, and text turned into validated variables. No account needed.",
+      "category": "research"
+    },
+    {
+      "name": "researchzy-clinical",
+      "source": "./plugins/researchzy-clinical",
+      "description": "Clinical research with your agent: protocols whose registry entry and analysis plan agree, trial records compared with the paper, reporting checklists filled with checked quotes, survival and diagnostic-accuracy analyses with checked text, and case reports screened for patient identifiers. No clinical advice. No account needed.",
       "category": "research"
     }
   ]

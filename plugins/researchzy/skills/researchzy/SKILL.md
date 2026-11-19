@@ -1,11 +1,11 @@
 ---
 name: researchzy
-description: Researchzy, the entry point for research with real papers. Searches about 250 million papers by DOI, arXiv ID, title or keywords, manages the user's library, gets and adds PDFs, and routes every other research task (literature reviews, systematic reviews and meta-analyses, ideas, citations, journal choice, reading, writing, translation and polishing, figures, statistics and causal inference, slides, grants, submission and revision) to the Researchzy skill that does it. Use when the user mentions Researchzy, wants to find, save or get papers, or asks for research help without naming a skill.
+description: Researchzy, the entry point for research with real papers. Searches about 250 million papers by DOI, arXiv ID, title or keywords, manages the user's library, gets and adds PDFs, and routes every other research task (literature reviews, systematic reviews and meta-analyses, ideas, citations, journal choice, reading, writing, translation and polishing, figures, statistics and causal inference, slides, grants, submission and revision, theses, surveys, scales, interviews and text as data, clinical protocols, registries, reporting checklists, survival and diagnostic accuracy, case reports) to the Researchzy skill that does it. Use when the user mentions Researchzy, wants to find, save or get papers, or asks for research help without naming a skill.
 ---
 
 # Researchzy
 
-This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, translation and polishing with `researchzy-language`, the thesis skills with `researchzy-thesis`, and the social-science methods with `researchzy-social`.
+This is the entry point to Researchzy. It searches and manages papers itself with Researchzy's MCP tools, and hands the other research tasks to the other Researchzy skills. `researchzy-literature-review`, `researchzy-ideas`, `researchzy-citation-finder` and `researchzy-find-journal` come with this plugin; the reading skills come with the `researchzy-reading` plugin, the manuscript skills with `researchzy-manuscript`, the evidence-synthesis skills with `researchzy-evidence`, translation and polishing with `researchzy-language`, the thesis skills with `researchzy-thesis`, the social-science methods with `researchzy-social`, and the clinical-research skills with `researchzy-clinical`.
 
 ## Which skill
 
@@ -46,6 +46,12 @@ This is the entry point to Researchzy. It searches and manages papers itself wit
 | Mediation, moderation, moderated mediation or the structural part of an SEM | `researchzy-path-models` | `researchzy-social` |
 | Qualitative coding of interviews, field notes or open answers, with quotes checked and agreement calibrated | `researchzy-qualitative` | `researchzy-social` |
 | Text turned into a research variable: codebook, validated model labels, topic or dictionary comparisons | `researchzy-text-as-data` | `researchzy-social` |
+| A trial or observational protocol, its registry entry and analysis plan checked against each other, or an institution's form | `researchzy-protocol` | `researchzy-clinical` |
+| A trial report compared with its ClinicalTrials.gov record, or a search for earlier trials | `researchzy-registry-check` | `researchzy-clinical` |
+| The reporting checklist a journal asks for (CONSORT, STROBE, PRISMA, CARE and others), filled with pages and quotes | `researchzy-reporting-checklist` | `researchzy-clinical` |
+| Survival analysis: Kaplan-Meier, log-rank, Cox, proportional hazards, RMST, competing risks | `researchzy-survival` | `researchzy-clinical` |
+| Diagnostic test accuracy or a clinical prediction model: ROC, calibration, optimism, decision curves | `researchzy-diagnostic-accuracy` | `researchzy-clinical` |
+| A clinical case report from the clinician's notes, screened for patient identifiers | `researchzy-case-report` | `researchzy-clinical` |
 
 When a request spans several steps (find, get the full text, read, write), take them in that order and stop where the request stops. If the skill a task needs is not installed, say so, name the plugin that provides it, and do what this skill can.
 
