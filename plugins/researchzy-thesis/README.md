@@ -18,6 +18,21 @@ Example prompts:
 
 The skills read Chinese and English theses. They do not lower a similarity score or an "AI rate", and they do not rewrite published text.
 
+## Install
+
+Claude Code:
+
+```text
+/plugin install researchzy-thesis --marketplace Researchzy/Researchzy-academic-skills
+```
+
+Codex:
+
+```sh
+codex plugin marketplace add Researchzy/Researchzy-academic-skills
+codex plugin add researchzy-thesis@researchzy
+```
+
 ## With Researchzy connected
 
 Install the [`researchzy`](../researchzy) plugin and sign in, and the proposal's literature basis comes from Researchzy's index of about 250 million papers, with every search logged and every cited paper one the search returned; without it the proposal uses only the references you supply and says so. Thesis assembly can then fill the reuse table from each published paper's record, and defence preparation can find recent papers close to the thesis that its reference list does not have.

@@ -18,6 +18,21 @@ Example prompts:
 - `Code these six interview transcripts with codebook thematic analysis and check every quote in my findings draft.`
 - `Label these 2,000 product reviews as price, quality, service or none, and show me how well the labels agree with mine.`
 
+## Install
+
+Claude Code:
+
+```text
+/plugin install researchzy-social --marketplace Researchzy/Researchzy-academic-skills
+```
+
+Codex:
+
+```sh
+codex plugin marketplace add Researchzy/Researchzy-academic-skills
+codex plugin add researchzy-social@researchzy
+```
+
 ## With Researchzy connected
 
 Install the [`researchzy`](../researchzy) plugin and sign in, and the survey and psychometrics skills can find a scale's development and validation papers in Researchzy's index and read the number of items, the keyed items and the reported loadings from the paper itself; the path-model skill can find prior work for each hypothesised path. Everything else works without an account.
