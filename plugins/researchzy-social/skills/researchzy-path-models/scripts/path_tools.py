@@ -70,7 +70,7 @@ from check_paths import atoms, evaluate, parse, read_model  # noqa: E402,F401
 NAME = re.compile(r"[^\W\d][\w.]*")
 MEMORY = 4_000_000                  # numbers held at once by one block of resamples
 NO_SEMOPY = ("semopy is not installed: ask the user before installing it (python3 -m pip install --user semopy), or fit "
-             "the model with lavaan in R")
+             "the model with lavaan if R has it (Rscript -e 'library(lavaan)')")
 SRMR_FORMULA = ("square root of the mean, over the lower triangle with the diagonal, of ((s_ij - sigma_ij) / "
                 "sqrt(s_ii s_jj))^2; s is the sample covariance with divisor n")
 

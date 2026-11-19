@@ -9,7 +9,7 @@ The measurement model is tested by `researchzy-psychometrics` (plugin `researchz
 | Engine | How | Notes |
 |---|---|---|
 | semopy | `python3 -m pip install --user semopy`, with the user's consent; `pt.fit_sem(data, model)` | No `:=` (path_tools evaluates them); no constraints across groups; check whether the installed version reports modification indices |
-| lavaan (R) | Installed in R with the user's consent; run from an R script the user keeps | `sem()`, `modindices()`, multigroup constraints, bootstrap intervals with `se = "bootstrap"`. The R script writes its estimates, df, fit and convergence to a CSV or JSON file in `paths/`; `analysis.py` reads and records them, with `engine` naming lavaan and its version. Never retype console output |
+| lavaan (R) | Check with `Rscript -e 'library(lavaan)'`. To install, with the user's consent: `apt-get install r-cran-lavaan` on Debian or Ubuntu with root; otherwise `install.packages("lavaan")` into a writable library (create `Sys.getenv("R_LIBS_USER")` first), which on Linux compiles Fortran in mnormt, pbivnorm and quadprog and needs gfortran. Run from an R script the user keeps | `sem()`, `modindices()`, multigroup constraints, bootstrap intervals with `se = "bootstrap"`. The R script writes its estimates, df, fit and convergence to a CSV or JSON file in `paths/`; `analysis.py` reads and records them, with `engine` naming lavaan and its version. Never retype console output |
 
 Without either, the structural model is `not_checked`: record `fit_sem`'s answer with `kept=False` and say why. Never estimate latent paths from composite scores and call them latent.
 

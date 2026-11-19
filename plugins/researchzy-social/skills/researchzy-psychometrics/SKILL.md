@@ -11,7 +11,7 @@ It holds no cut-offs: CFI .95, AVE .50 or HTMT .85 are conventions the user choo
 
 ## Requirements
 
-Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. Python 3.10 or newer. `score_items.py`, `check_psychometrics.py`, `rz_results.py` and `check_results.py` need nothing else. `psy_tools.py`, imported by the analysis script, needs numpy, pandas and scipy, and statsmodels for the EFA. A `.sav` file needs pyreadstat; the CFA needs semopy or R with lavaan; metric and scalar invariance need lavaan. semopy, pyreadstat and lavaan are installed only after the user agrees (`python3 -m pip install --user semopy pyreadstat`; `install.packages("lavaan")` in R). A step whose package is missing is reported as `not_checked`, with the package named. No account is needed; step 2 says what the Researchzy tools add.
+Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. Python 3.10 or newer. `score_items.py`, `check_psychometrics.py`, `rz_results.py` and `check_results.py` need nothing else. `psy_tools.py`, imported by the analysis script, needs numpy, pandas and scipy, and statsmodels for the EFA. A `.sav` file needs pyreadstat; the CFA needs semopy or R with lavaan; metric and scalar invariance need lavaan. Check first what is installed (`import semopy`, `import pyreadstat`, `Rscript -e 'library(lavaan)'`) and install a missing package only after the user agrees: `python3 -m pip install --user semopy pyreadstat`; lavaan as in [CFA and validity](references/cfa-and-validity.md). A step whose package is missing is reported as `not_checked`, with the package named. No account is needed; step 2 says what the Researchzy tools add.
 
 ## Inputs
 

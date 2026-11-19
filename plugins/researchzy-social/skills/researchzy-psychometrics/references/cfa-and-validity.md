@@ -4,14 +4,16 @@
 
 | | semopy (Python) | lavaan (R) |
 |---|---|---|
-| Install | `python3 -m pip install --user semopy`, after the user agrees | R, then `install.packages("lavaan")`, after the user agrees |
+| Install | Check with `import semopy`; if missing, `python3 -m pip install --user semopy` after the user agrees | Check with `Rscript -e 'library(lavaan)'`; if missing, see below |
 | One-group CFA | Yes: `pt.cfa_semopy` returns the record | Yes: the R script writes the fields below to JSON |
 | SRMR | Not among its statistics: `pt.srmr` computes it | `fitMeasures()` |
 | RMSEA interval | Not given: report RMSEA without one | `fitMeasures()` |
 | Ordinal items | See [reliability and EFA](reliability-and-efa.md) | `ordered =` |
 | Constraints across groups | No: groups are fitted one by one | Yes: the only route to metric and scalar invariance |
 
-Record the engine and its version (`engine`, `engine_version`; `rz.finish(packages=("semopy",))`). Neither engine is in the Researchzy Agent image; until the user agrees to one, the CFA is `not_checked`.
+Record the engine and its version (`engine`, `engine_version`; `rz.finish(packages=("semopy",))`). When neither engine is installed and the user does not agree to installing one, or the install fails, the CFA is `not_checked`, with the reason.
+
+To install lavaan, after the user agrees: on Debian or Ubuntu with root, `apt-get install r-cran-lavaan` installs ready-built packages. Otherwise install from CRAN into a library the user can write. Create the personal library first (`Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)'`): a non-interactive R whose library is not writable stops with "unable to install packages". Then run `Rscript -e 'install.packages("lavaan", repos = "https://cloud.r-project.org")'`. On Linux this builds from source, and lavaan's dependencies mnormt, pbivnorm and quadprog compile Fortran: without `gfortran` the install fails. If it fails, metric and scalar invariance are `not_checked`, with the error as the reason.
 
 ## With semopy
 

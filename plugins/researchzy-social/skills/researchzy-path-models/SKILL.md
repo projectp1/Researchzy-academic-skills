@@ -11,7 +11,7 @@ It does not build or test measurement models (`researchzy-psychometrics`, plugin
 
 ## Requirements
 
-Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. Python 3.10 or newer. `check_paths.py`, `probe_interaction.py`, `rz_results.py` and `check_results.py` need nothing else; `path_tools.py` needs numpy, pandas and statsmodels. Latent variables need semopy or R with lavaan; install either only with the user's consent (`python3 -m pip install --user semopy`). Without them a latent model is `not_checked`. The ρ sensitivity analysis needs R with the package mediation; without it, record that it was not done and why. If a package is missing, say which and ask before installing. No account is needed; step 2 says what the Researchzy tools add.
+Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. Python 3.10 or newer. `check_paths.py`, `probe_interaction.py`, `rz_results.py` and `check_results.py` need nothing else; `path_tools.py` needs numpy, pandas and statsmodels. Latent variables need semopy or R with lavaan: check first (`import semopy`, `Rscript -e 'library(lavaan)'`) and install only with the user's consent (`python3 -m pip install --user semopy`; lavaan as in [SEM structure](references/sem-structure.md)). Without them a latent model is `not_checked`. The ρ sensitivity analysis needs R with the package mediation; without it, record that it was not done and why. If a package is missing, say which and ask before installing. No account is needed; step 2 says what the Researchzy tools add.
 
 ## Inputs
 

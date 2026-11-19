@@ -289,7 +289,8 @@ def cfa_semopy(df, syntax, obj="MLW", matrices=None) -> dict:
         import semopy
     except ImportError:
         return {"status": "not_checked", "reason": "semopy is not installed: ask the user before installing it "
-                                                   "(python3 -m pip install --user semopy), or use lavaan"}
+                                                   "(python3 -m pip install --user semopy), or use lavaan if R has "
+                                                   "it (Rscript -e 'library(lavaan)')"}
     from importlib.metadata import version
     factors = {m.group(1): re.split(r"\s*\+\s*", m.group(2).strip())
                for m in re.finditer(r"^\s*(\w+)\s*=~\s*(.+?)\s*$", syntax, re.M)}
