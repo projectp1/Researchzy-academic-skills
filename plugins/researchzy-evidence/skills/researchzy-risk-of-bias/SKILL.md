@@ -11,7 +11,7 @@ It bundles no tool: no signalling questions and no judgement algorithm, because 
 
 ## Requirements
 
-Python 3.10 or newer; resolve `SKILL_DIR` to the directory containing this `SKILL.md`. `rob_check.py` and `sof_check.py` need only the standard library. `rob_plot.py` needs matplotlib: without it no plot is drawn and the run says so; ask before installing it. No account is needed. With the `researchzy` plugin and a Researchzy account, `get_pdf_download` can fetch the PDF of a study the index holds.
+Python 3.10 or newer; resolve `SKILL_DIR` to the directory containing this `SKILL.md`. `rob_check.py` and `sof_check.py` need only the standard library. `rob_plot.py` needs matplotlib: without it no plot is drawn and the run says so; ask before installing it. No account is needed. With the `researchzy` plugin and a Researchzy account, `get_paper_files` can fetch the PDF of a study the index holds and its TEI XML.
 
 ## Inputs
 
@@ -31,7 +31,7 @@ Everything goes in `risk-of-bias/` in the user's working directory.
    python3 "$SKILL_DIR/scripts/rob_check.py" hash risk-of-bias/tool-source/<file>
    ```
 
-2. **Save the texts.** Save each study's full text as UTF-8 text in `risk-of-bias/texts/<study>.txt`, and any protocol or registration you rely on beside it. Use the user's files first. With Researchzy, `get_pdf_download` returns the PDF the index holds; `researchzy-download` (plugin `researchzy-reading`, when installed) finds open-access copies and extracts their text. Keep page markers (`[[page N]]` or `===== PAGE N =====` on a line of their own): the check then reports the page of each quote. List every text in `assessments.json` with its kind and its hash from `hash`. Never edit a text to make a quote fit.
+2. **Save the texts.** Save each study's full text as UTF-8 text in `risk-of-bias/texts/<study>.txt`, and any protocol or registration you rely on beside it. Use the user's files first. With Researchzy, `get_paper_files` returns the PDF the index holds and, when there is one, its TEI XML, which the `researchzy` skill's `tei_text.py` turns into a text with `[[page N]]` lines; `researchzy-download` (plugin `researchzy-reading`, when installed) finds open-access copies and extracts their text. Keep page markers (`[[page N]]` or `===== PAGE N =====` on a line of their own): the check then reports the page of each quote. List every text in `assessments.json` with its kind and its hash from `hash`. Never edit a text to make a quote fit.
 
 3. **Assess.** Read [assessing](references/assessing.md). One entry per study and one result per outcome. Write the `target` (for example the effect of assignment to the intervention) before you look at which group did better. Answer every signalling question in the tool's vocabulary. Give each domain a judgement with at least one quote and its locator, or `no_information` with every place you looked; then the overall judgement under the registered rule. You are one assessor: `assessor` is `model`, and `checked_by` names the person who reviews the entry, empty until someone does.
 

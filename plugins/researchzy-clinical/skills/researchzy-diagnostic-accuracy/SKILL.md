@@ -25,7 +25,7 @@ Ask once, in one message, for what the files do not settle: the column names, th
 
 Everything goes in `diagnostic-accuracy/` in the user's working directory. Run every command from that directory.
 
-1. **Plan.** Before any estimate, write `diagnostic-accuracy/plan.md` ([input and probe](references/input-and-probe.md)): the question (one test, two tests, a new model, a published model), the reference standard and positive value, the design, the datasets, the cut-off and its source, the candidate predictors, the threshold range, the interval methods, the seed. With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` and `get_pdf_download` can find the prevalence in the intended population and a published model's coefficients, intercept and cut-off; record each with its table and page. Without it, ask the user for the source. Never fill a prevalence, coefficient or cut-off from memory.
+1. **Plan.** Before any estimate, write `diagnostic-accuracy/plan.md` ([input and probe](references/input-and-probe.md)): the question (one test, two tests, a new model, a published model), the reference standard and positive value, the design, the datasets, the cut-off and its source, the candidate predictors, the threshold range, the interval methods, the seed. With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` and `get_paper_files` can find the prevalence in the intended population and a published model's coefficients, intercept and cut-off; record each with its table and page. Without it, ask the user for the source. Never fill a prevalence, coefficient or cut-off from memory.
 
 2. **Probe.**
 

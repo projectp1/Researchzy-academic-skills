@@ -56,7 +56,7 @@ A scale described only by year or topic is not identified. While permission is `
 With the `researchzy` plugin connected:
 
 1. `search_papers` with the scale's name or its construct and "scale", sorted by `citationCount`. Show the user the candidates (title, year, venue, DOI); the user says which one their scale comes from.
-2. Read the full text through `get_pdf_download`, or the user's copy. Record the item count, response format and reverse-keyed items, each with page or table and a quote of a few words.
+2. Read the full text through `get_paper_files`, or the user's copy. Record the item count, response format and reverse-keyed items, each with page or table and a quote of a few words.
 3. Record the result in the card with the date. No result, or no full text, is `not_checked`, not "not found anywhere".
 
 The index matches words in titles and abstracts only: a scale introduced inside a paper about something else may be missed, and nothing in it states licence terms.

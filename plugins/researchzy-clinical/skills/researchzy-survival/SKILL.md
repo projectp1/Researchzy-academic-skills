@@ -72,7 +72,7 @@ Everything goes in `survival/` in the user's working directory. Run every comman
 
 7. **Hand over** `results.md`, `methods.md`, `check.md` and the figures, with the probe's findings and what the user decided about each, every row left out and its reason, and every `not_checked` row.
 
-8. **Events a study needs**, before a study or when asked ([competing events and event counts](references/competing-events-and-events.md)): `rs.schoenfeld_events(hr, ...)` gives the events for a two-group comparison; patients follow only from an event probability the user gives with its source. With the `researchzy` plugin connected (it needs a Researchzy account), find a prior study with `search_papers`, read the hazard ratio or event rate in its full text from `get_pdf_download`, and record the DOI and the table in `probability_source`. Without it, ask the user for the paper or the value.
+8. **Events a study needs**, before a study or when asked ([competing events and event counts](references/competing-events-and-events.md)): `rs.schoenfeld_events(hr, ...)` gives the events for a two-group comparison; patients follow only from an event probability the user gives with its source. With the `researchzy` plugin connected (it needs a Researchzy account), find a prior study with `search_papers`, read the hazard ratio or event rate in its PDF from `get_paper_files`, and record the DOI and the table in `probability_source`. Without it, ask the user for the paper or the value.
 
 ## Outputs
 

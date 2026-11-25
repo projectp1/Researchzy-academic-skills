@@ -11,7 +11,7 @@ It carries no registry rules, deadlines or rate limits, and no view of what a re
 
 ## Requirements
 
-Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. `registry_compare.py` needs Python 3.10 or newer and nothing else; it never goes online. You fetch from the registry's public API and save what it returns, so you need web access; without it, ask the user for the saved responses. Turning a PDF into text uses `pdftotext` (poppler); without it, ask for the paper as text. No account is needed. With the `researchzy` plugin and a Researchzy account, `get_pdf_download` returns the full text of a paper the index holds, and `search_papers` finds published reports of the trials a search lists.
+Resolve `SKILL_DIR` to the directory containing this `SKILL.md`. `registry_compare.py` needs Python 3.10 or newer and nothing else; it never goes online. You fetch from the registry's public API and save what it returns, so you need web access; without it, ask the user for the saved responses. Turning a PDF into text uses `pdftotext` (poppler); without it, ask for the paper as text. No account is needed. With the `researchzy` plugin and a Researchzy account, `get_paper_files` returns the PDF of a paper the index holds and, when there is one, its TEI XML, and `search_papers` finds published reports of the trials a search lists.
 
 ## Inputs
 

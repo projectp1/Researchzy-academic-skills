@@ -31,6 +31,8 @@ jobs:
         run: |
           python -m unittest discover -s plugins/researchzy-manuscript/skills/researchzy-rebuttal/shared/tests
           python -m pytest plugins/researchzy-manuscript/skills/researchzy-rebuttal/tests
+      - name: researchzy
+        run: python -m unittest discover -s plugins/researchzy/skills/researchzy/tests
       - name: researchzy-literature-review
         run: python -m unittest discover -s plugins/researchzy/skills/researchzy-literature-review/tests
       - name: researchzy-ideas

@@ -71,7 +71,7 @@ Researchzy Academic Skills is **forty-one agent skills for the whole life of a p
 | 🔗 [`researchzy-citation-finder`](plugins/researchzy/skills/researchzy-citation-finder/SKILL.md) | Find real papers for the sentences of a draft that need a citation: logged searches per sentence, reading to the depth the claim needs, a verdict with a quote, a narrower wording when the evidence supports less<br>**You get:** A citation map, `new-references.bib`, and the searches tried where nothing was found |
 | 🎯 [`researchzy-find-journal`](plugins/researchzy/skills/researchzy-find-journal/SKILL.md) | Choose where to submit: tally where similar papers and your references were published, check each venue in Crossref and DOAJ, and plan the next step after a rejection<br>**You get:** A shortlist with the evidence for each venue, sourced and dated facts, and a list of what to confirm on the venue's site |
 
-The plugin connects nine [MCP tools](plugins/researchzy/docs/tools.md): `search_papers`, `get_paper`, `list_collections`, `create_collection`, `list_library_papers`, `add_paper_to_library`, `get_pdf_download`, `create_pdf_upload` and `get_profile`.
+The plugin connects nine [MCP tools](plugins/researchzy/docs/tools.md): `search_papers`, `get_paper`, `list_collections`, `create_collection`, `list_library_papers`, `add_paper_to_library`, `get_paper_files`, `create_pdf_upload` and `get_profile`.
 
 ### `researchzy-reading` — read papers (no account)
 

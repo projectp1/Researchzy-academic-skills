@@ -29,7 +29,7 @@ Everything goes in `psychometrics/` in the user's working directory. Run every c
 
 1. **Declare the item map.** Write `psychometrics/items.json` ([item map and scoring](references/item-map-and-scoring.md)). Show it to the user as a table; when they confirm it, add `"confirmed": "<date>"`. It is the only source for scoring, the CFA syntax and the construct tables.
 
-2. **Sources.** Record each scale's source and licence in the map. With the `researchzy` plugin (it needs a Researchzy account), find the original validation paper with `search_papers` by the scale's name and read it through `get_pdf_download`: record the number of items, the keyed items and the reported structure with page numbers. A scale that is not found is `not_checked`. Without it, use the user's codebook and say so. Never copy item wording from memory.
+2. **Sources.** Record each scale's source and licence in the map. With the `researchzy` plugin (it needs a Researchzy account), find the original validation paper with `search_papers` by the scale's name and read it through `get_paper_files`: record the number of items, the keyed items and the reported structure with page numbers. A scale that is not found is `not_checked`. Without it, use the user's codebook and say so. Never copy item wording from memory.
 
 3. **Score.**
 

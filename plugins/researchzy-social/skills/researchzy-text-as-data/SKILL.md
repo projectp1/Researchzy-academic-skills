@@ -76,7 +76,7 @@ Everything goes in `text-as-data/` in the user's working directory; every comman
    python3 "$SKILL_DIR/scripts/tad_compare.py" topics --k 4,5,6 --seeds 1,2,3
    ```
 
-   The user reads `dictionary/kwic.csv` and marks each hit valid or not, and reads `topics/k<K>-reading.md` before any topic gets a name; names enter only through `--reading-log`. With Researchzy, `search_papers` finds papers that publish a dictionary or measure the construct, and `get_pdf_download` lets you read how it was built; the terms still come from a file the user supplies.
+   The user reads `dictionary/kwic.csv` and marks each hit valid or not, and reads `topics/k<K>-reading.md` before any topic gets a name; names enter only through `--reading-log`. With Researchzy, `search_papers` finds papers that publish a dictionary or measure the construct, and `get_paper_files` lets you read how it was built; the terms still come from a file the user supplies.
 
 8. **Measurement error.**
 

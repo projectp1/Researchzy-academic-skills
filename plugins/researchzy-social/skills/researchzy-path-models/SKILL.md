@@ -33,7 +33,7 @@ Everything goes in `paths/` in the user's working directory. Run every command f
    python3 "$SKILL_DIR/scripts/check_paths.py" register paths/model.md
    ```
 
-   A later change is registered with `--reason "..."` and reported as a deviation. With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` finds prior work for each hypothesised path; read the passage in the full text (`get_pdf_download`) and quote it in `model.md`, or hand the citations to `researchzy-citation-finder`. The index matches keywords in titles and abstracts only, so a path with no paper found is recorded as not checked, not as unsupported. Without Researchzy, statements of prior work get `[Citation needed: …]`.
+   A later change is registered with `--reason "..."` and reported as a deviation. With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` finds prior work for each hypothesised path; read the passage in the full text (`get_paper_files`) and quote it in `model.md`, or hand the citations to `researchzy-citation-finder`. The index matches keywords in titles and abstracts only, so a path with no paper found is recorded as not checked, not as unsupported. Without Researchzy, statements of prior work get `[Citation needed: …]`.
 
 3. **Write the analysis script.** One script, `paths/analysis.py`, that reads the data and `model.md` and records every model fitted, kept or dropped (`kept=False, reason=...`):
 

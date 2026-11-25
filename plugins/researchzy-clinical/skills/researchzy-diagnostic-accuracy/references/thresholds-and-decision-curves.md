@@ -14,7 +14,7 @@ A cut-off chosen on the test data is refused by `record` and failed by the check
 
 ## Prevalence
 
-Predictive values and net benefit use the sample's prevalence in a consecutive or cross-sectional design, and otherwise the target population's prevalence with its source. Record the source as the user gives it, with the date it was read. With the `researchzy` plugin connected, `search_papers` can find a prevalence study of the intended population; read the value in the full text through `get_pdf_download` and quote its table or page.
+Predictive values and net benefit use the sample's prevalence in a consecutive or cross-sectional design, and otherwise the target population's prevalence with its source. Record the source as the user gives it, with the date it was read. With the `researchzy` plugin connected, `search_papers` can find a prevalence study of the intended population; read the value in the PDF through `get_paper_files` and quote its table or page.
 
 ## Decision curves
 

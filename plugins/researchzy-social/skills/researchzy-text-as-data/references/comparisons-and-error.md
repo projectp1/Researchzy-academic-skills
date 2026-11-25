@@ -4,7 +4,7 @@ The labelled variable is the measure. A dictionary and a topic model are compari
 
 ## A dictionary
 
-The user supplies `terms.csv` with the columns `category,term`: their own list, or one published with a paper. Record its source and the date in `protocol.json` under `dictionary` (`file`, `source`, `date`). With Researchzy connected, `search_papers` (keywords in titles and abstracts) finds papers that build a dictionary or measure the construct, and `get_pdf_download` lets you read how the list was built and validated; the terms themselves still come from a file the user supplies. Never write a published dictionary from memory.
+The user supplies `terms.csv` with the columns `category,term`: their own list, or one published with a paper. Record its source and the date in `protocol.json` under `dictionary` (`file`, `source`, `date`). With Researchzy connected, `search_papers` (keywords in titles and abstracts) finds papers that build a dictionary or measure the construct, and `get_paper_files` lets you read how the list was built and validated; the terms themselves still come from a file the user supplies. Never write a published dictionary from memory.
 
 ```sh
 python3 "$SKILL_DIR/scripts/tad_compare.py" dictionary text-as-data/terms.csv --window 4 --kwic 20 --seed 1

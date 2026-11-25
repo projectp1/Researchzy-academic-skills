@@ -36,6 +36,6 @@ rs.schoenfeld_events(0.70, alpha=0.05, power=0.80, allocation=0.5, sides=2,
 - α, power and the allocation are the user's choices; 0.05 and 0.80 are conventions, not requirements.
 - `path` writes the result to `survival/power-<name>.json`, where `check_survival.py` looks up its numbers in the text.
 
-With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` finds a prior study of the same comparison; read the hazard ratio or the event rate in its full text from `get_pdf_download`, and record the DOI and the table or page in `probability_source`. The index matches keywords in titles and abstracts only, so it cannot promise to find every prior study. Without it, ask the user for the paper or the value.
+With the `researchzy` plugin connected (it needs a Researchzy account), `search_papers` finds a prior study of the same comparison; read the hazard ratio or the event rate in its PDF from `get_paper_files`, and record the DOI and the table or page in `probability_source`. The index matches keywords in titles and abstracts only, so it cannot promise to find every prior study. Without it, ask the user for the paper or the value.
 
 A protocol that uses these numbers is written with `researchzy-protocol` (plugin `researchzy-clinical`); power for outcomes that are not times to an event goes to `researchzy-statistics` (plugin `researchzy-manuscript`), when installed.
