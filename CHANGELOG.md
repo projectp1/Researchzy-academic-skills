@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.3.0 (unreleased)
+## 2.3.0 (2026-11-25)
 
 Fifteen new skills in three new plugins, all optional and working on your own files: `researchzy-thesis` for a degree thesis, `researchzy-social` for social-science methods and `researchzy-clinical` for clinical research. Like the rest, they carry no facts that expire: school templates and format rules, reporting checklists, registry fields, forms and statistical cut-offs come from the files you supply or pages read in the session, with their source and date, and every cut-off is a convention you choose. The scripts read Chinese as well as English.
 
